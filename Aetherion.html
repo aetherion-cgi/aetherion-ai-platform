@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aetherion — Governed Intelligence Orchestration</title>
+<meta name="description" content="Aetherion is a governed, model-agnostic AI infrastructure platform that unifies AI routing, domain cognition, policy enforcement, data orchestration, compute/energy optimization, and continuous operational learning into a single institutional control layer."/>
+<meta property="og:title" content="Aetherion — Governed Intelligence Orchestration"/>
+<meta property="og:description" content="The orchestration layer for real-world intelligence. Designed for enterprises, governments, and sovereign environments."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070810;
+  --bg2:#0B0D1A;
+  --surface:#0F1120;
+  --surface2:#131628;
+  --border:#1E2140;
+  --text:#E8EAF6;
+  --text-muted:#8B92B8;
+  --text-faint:#4A5080;
+  --violet:#7B4DFF;
+  --violet-light:#A07BFF;
+  --violet-dim:#3D2680;
+  --teal:#4FC3F7;
+  --teal-dim:#1A4A5C;
+  --gold:#C9A84C;
+  --red-dim:#FF6B6B;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'Inter',sans-serif;
+  --radius:8px;
+  --radius-lg:14px;
+  --transition:180ms cubic-bezier(0.16,1,0.3,1);
+}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.6;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;background:none;border:none;font:inherit;color:inherit}
+p,li{text-wrap:pretty}
+h1,h2,h3,h4{text-wrap:balance;line-height:1.15;font-family:var(--font-display)}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:0.1s}
+.reveal-delay-2{transition-delay:0.2s}
+.reveal-delay-3{transition-delay:0.3s}
+.reveal-delay-4{transition-delay:0.4s}
+.reveal-delay-5{transition-delay:0.5s}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(7,8,16,0.82);backdrop-filter:blur(16px);border-bottom:1px solid rgba(123,77,255,0.12)}
+.nav-logo{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:600;font-size:18px;letter-spacing:0.02em}
+.nav-links{display:flex;align-items:center;gap:2rem}
+.nav-links a{font-size:14px;color:var(--text-muted);font-weight:500;transition:color var(--transition)}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{padding:7px 18px;border:1px solid var(--violet);border-radius:var(--radius);font-size:13px;font-weight:600;color:var(--violet);transition:all var(--transition)}
+.nav-cta:hover{background:var(--violet);color:#fff}
+.hamburger{display:none;flex-direction:column;gap:5px;padding:8px}
+.hamburger span{width:22px;height:2px;background:var(--text);border-radius:2px;transition:all 0.3s}
+.mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;background:var(--bg2);border-bottom:1px solid var(--border);padding:1.5rem 2rem;z-index:99;flex-direction:column;gap:1rem}
+.mobile-menu a{font-size:15px;color:var(--text-muted);padding:0.5rem 0;border-bottom:1px solid var(--border)}
+.mobile-menu.open{display:flex}
+
+/* ── HERO ── */
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:6rem 2rem 4rem;overflow:hidden}
+.stars{position:absolute;inset:0;pointer-events:none}
+.star{position:absolute;border-radius:50%;animation:twinkle var(--d,3s) infinite var(--delay,0s)}
+@keyframes twinkle{0%,100%{opacity:var(--min-op,0.1)}50%{opacity:var(--max-op,0.8)}}
+.hero-glow{position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;background:radial-gradient(ellipse,rgba(123,77,255,0.12) 0%,transparent 70%);pointer-events:none}
+.hero-content{position:relative;z-index:1;max-width:880px}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border:1px solid rgba(123,77,255,0.4);border-radius:100px;font-size:12px;font-weight:600;color:var(--violet-light);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:2rem;background:rgba(123,77,255,0.06)}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--violet);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+h1.hero-title{font-size:clamp(2.4rem,5.5vw,5rem);font-weight:700;line-height:1.08;letter-spacing:-0.02em;margin-bottom:1.5rem}
+.hero-title .grad{background:linear-gradient(135deg,#B3E5FC 0%,#A07BFF 50%,var(--gold) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(1rem,1.8vw,1.2rem);color:var(--text-muted);max-width:640px;margin:0 auto 2.5rem;line-height:1.7}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-primary{padding:13px 28px;background:var(--violet);border-radius:var(--radius);font-weight:600;font-size:15px;transition:all var(--transition);color:#fff}
+.btn-primary:hover{background:var(--violet-light);transform:translateY(-1px)}
+.btn-ghost{padding:13px 28px;border:1px solid var(--border);border-radius:var(--radius);font-weight:600;font-size:15px;color:var(--text-muted);transition:all var(--transition)}
+.btn-ghost:hover{border-color:var(--text-muted);color:var(--text)}
+.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--text-faint);font-size:12px;letter-spacing:0.06em;text-transform:uppercase}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--violet),transparent);animation:scrollDown 2s infinite}
+@keyframes scrollDown{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}100%{transform:scaleY(1);opacity:0;transform-origin:bottom}}
+
+/* ── SECTIONS ── */
+section{padding:clamp(4rem,8vw,7rem) 2rem}
+.container{max-width:1100px;margin:0 auto}
+.section-label{font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--violet);margin-bottom:1rem}
+.section-title{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;margin-bottom:1rem;letter-spacing:-0.01em}
+.section-sub{font-size:1.05rem;color:var(--text-muted);max-width:580px;line-height:1.7}
+
+/* ── PROBLEM ── */
+#problem{background:var(--bg)}
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem}
+.problem-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;transition:border-color var(--transition)}
+.problem-card:hover{border-color:rgba(123,77,255,0.4)}
+.problem-icon{width:36px;height:36px;margin-bottom:1rem;color:var(--violet)}
+.problem-card h3{font-size:15px;font-weight:600;margin-bottom:0.5rem;font-family:var(--font-display)}
+.problem-card p{font-size:14px;color:var(--text-muted);line-height:1.6}
+
+/* ── WHAT IS ── */
+#what{background:var(--bg2)}
+.what-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-top:3rem}
+.what-text blockquote{font-size:1.15rem;font-style:italic;color:var(--teal);border-left:3px solid var(--teal);padding-left:1.25rem;margin:1.5rem 0;line-height:1.6}
+.what-checks{margin-top:1.5rem;display:flex;flex-direction:column;gap:0.75rem}
+.check-item{display:flex;align-items:flex-start;gap:10px;font-size:15px;color:var(--text-muted)}
+.check-item::before{content:"◆";color:var(--violet);flex-shrink:0;margin-top:2px;font-size:10px}
+.arch-diagram{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem}
+
+/* ── ARCHITECTURE ── */
+#architecture{background:var(--bg)}
+.arch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem}
+.arch-card{background:var(--surface);border:1px solid var(--border);border-top:2px solid var(--violet);border-radius:var(--radius-lg);padding:1.5rem;transition:all var(--transition)}
+.arch-card:hover{background:var(--surface2);transform:translateY(-3px);box-shadow:0 12px 40px rgba(123,77,255,0.1)}
+.arch-card-num{font-size:11px;font-weight:700;letter-spacing:0.1em;color:var(--violet);text-transform:uppercase;margin-bottom:0.5rem}
+.arch-card h3{font-size:15px;font-weight:600;margin-bottom:0.5rem;font-family:var(--font-display)}
+.arch-card p{font-size:13px;color:var(--text-muted);line-height:1.6}
+
+/* ── GOVERNANCE ── */
+#governance{background:linear-gradient(135deg,var(--bg2) 0%,#100820 100%);border-top:1px solid rgba(123,77,255,0.2);border-bottom:1px solid rgba(123,77,255,0.2)}
+.gov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem}
+.gov-col h3{font-size:16px;font-weight:600;color:var(--violet-light);margin-bottom:1rem;font-family:var(--font-display)}
+.gov-col ul{list-style:none;display:flex;flex-direction:column;gap:0.6rem}
+.gov-col li{font-size:14px;color:var(--text-muted);padding-left:1rem;position:relative}
+.gov-col li::before{content:"—";position:absolute;left:0;color:var(--violet-dim)}
+.gov-quote{margin-top:3rem;padding:1.75rem 2rem;background:rgba(123,77,255,0.07);border:1px solid rgba(123,77,255,0.25);border-radius:var(--radius-lg);font-size:1.1rem;font-style:italic;color:var(--teal);text-align:center;line-height:1.7}
+
+/* ── IMPACT ── */
+#impact{background:var(--bg)}
+.impact-tabs{display:flex;gap:0;margin-top:3rem;margin-bottom:2rem;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;width:fit-content}
+.tab-btn{padding:10px 28px;font-size:14px;font-weight:600;color:var(--text-muted);transition:all var(--transition);background:transparent}
+.tab-btn.active{background:var(--violet);color:#fff}
+.tab-content{display:none}
+.tab-content.active{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.impact-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem 1.5rem}
+.impact-item h3{font-size:14px;font-weight:600;margin-bottom:0.4rem;font-family:var(--font-display);color:var(--text)}
+.impact-item p{font-size:13px;color:var(--text-muted);line-height:1.6}
+
+/* ── DIFFERENTIATION ── */
+#differentiation{background:var(--bg2)}
+.diff-table-wrap{overflow-x:auto;margin-top:2.5rem;border-radius:var(--radius-lg);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+thead th{padding:14px 18px;text-align:left;background:var(--surface2);font-weight:600;font-family:var(--font-display);font-size:13px;letter-spacing:0.04em;color:var(--text-muted);border-bottom:1px solid var(--border)}
+thead th:nth-child(3){color:var(--violet-light)}
+tbody tr:not(:last-child){border-bottom:1px solid var(--border)}
+tbody td{padding:13px 18px;vertical-align:top}
+tbody tr:hover td{background:var(--surface2)}
+td:first-child{font-weight:600;color:var(--text);white-space:nowrap}
+td:nth-child(2){color:var(--red-dim);opacity:0.75}
+td:nth-child(3){color:var(--teal)}
+td:nth-child(3)::before{content:"✓ ";color:var(--violet)}
+
+/* ── THIRD ORDER ── */
+#third-order{background:var(--bg)}
+.order-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem}
+.order-col{position:relative;padding:2rem 1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg)}
+.order-col-label{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--violet);margin-bottom:1.25rem}
+.order-col h3{font-size:22px;font-weight:700;margin-bottom:1rem;font-family:var(--font-display);color:var(--text)}
+.order-col ul{list-style:none;display:flex;flex-direction:column;gap:0.6rem}
+.order-col li{font-size:13px;color:var(--text-muted);padding-left:1rem;position:relative;line-height:1.5}
+.order-col li::before{content:"→";position:absolute;left:0;color:var(--teal)}
+
+/* ── DEPLOYMENT ── */
+#deployment{background:var(--bg2)}
+.deploy-row{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2.5rem;justify-content:center}
+.deploy-pill{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem 1.75rem;text-align:center;min-width:160px;transition:border-color var(--transition)}
+.deploy-pill:hover{border-color:var(--violet)}
+.deploy-pill-icon{font-size:22px;margin-bottom:0.5rem}
+.deploy-pill h3{font-size:13px;font-weight:600;margin-bottom:0.3rem;font-family:var(--font-display)}
+.deploy-pill p{font-size:12px;color:var(--text-faint)}
+
+/* ── FOOTER CTA ── */
+#footer-cta{background:linear-gradient(135deg,#08081A 0%,#100820 100%);text-align:center;padding:7rem 2rem;border-top:1px solid rgba(123,77,255,0.2)}
+.footer-cta-title{font-size:clamp(1.8rem,4vw,3.2rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:1.25rem;line-height:1.1}
+.footer-cta-sub{font-size:1.05rem;color:var(--text-muted);max-width:500px;margin:0 auto 2.5rem}
+.footer-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+footer{background:var(--bg);padding:2rem;text-align:center;color:var(--text-faint);font-size:13px;border-top:1px solid var(--border)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .problem-grid,.arch-grid,.gov-grid,.order-grid{grid-template-columns:repeat(2,1fr)}
+  .what-inner{grid-template-columns:1fr;gap:2.5rem}
+  .tab-content.active{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .problem-grid,.arch-grid,.gov-grid,.order-grid,.tab-content.active{grid-template-columns:1fr}
+  .deploy-row{flex-direction:column;align-items:stretch}
+  .deploy-pill{min-width:unset}
+  .impact-tabs{width:100%}
+  .tab-btn{flex:1}
+  .hero-title{font-size:clamp(2rem,8vw,3rem)}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-label="Aetherion logo">
+      <defs>
+        <linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#C0C8E8"/>
+          <stop offset="100%" stop-color="#A07BFF"/>
+        </linearGradient>
+      </defs>
+      <polygon points="16,2 30,28 2,28" stroke="url(#lg1)" stroke-width="1.8" fill="none" stroke-linejoin="round"/>
+      <line x1="8" y1="20" x2="24" y2="20" stroke="url(#lg1)" stroke-width="1.8"/>
+      <circle cx="16" cy="2" r="2" fill="#A07BFF"/>
+      <circle cx="2" cy="28" r="2" fill="#4FC3F7"/>
+      <circle cx="30" cy="28" r="2" fill="#4FC3F7"/>
+      <circle cx="8" cy="20" r="1.5" fill="#7B4DFF"/>
+      <circle cx="24" cy="20" r="1.5" fill="#7B4DFF"/>
+    </svg>
+    Aetherion
+  </div>
+  <div class="nav-links">
+    <a href="#what">Platform</a>
+    <a href="#architecture">Architecture</a>
+    <a href="#impact">Impact</a>
+    <a href="#differentiation">Why Different</a>
+    <a href="#footer-cta" class="nav-cta">Request Access</a>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#what" onclick="toggleMenu()">Platform</a>
+  <a href="#architecture" onclick="toggleMenu()">Architecture</a>
+  <a href="#impact" onclick="toggleMenu()">Impact</a>
+  <a href="#differentiation" onclick="toggleMenu()">Why Different</a>
+  <a href="#footer-cta" onclick="toggleMenu()">Request Access</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="stars" id="stars"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge reveal"><span class="hero-badge-dot"></span>Distributed AI Intelligence Platform</div>
+    <h1 class="hero-title reveal reveal-delay-1">The Orchestration Layer for <span class="grad">Real-World Intelligence</span></h1>
+    <p class="hero-sub reveal reveal-delay-2">Aetherion is a governed, model-agnostic AI infrastructure platform that coordinates models, data, compute, energy, tools, and policy across enterprises and governments at scale.</p>
+    <div class="hero-actions reveal reveal-delay-3">
+      <a href="#what" class="btn-primary">Explore the Platform</a>
+      <a href="#architecture" class="btn-ghost">Architecture Deep Dive</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div>Scroll</div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="container">
+    <div class="reveal"><p class="section-label">The Challenge</p></div>
+    <h2 class="section-title reveal reveal-delay-1">AI is Powerful. The World is Still Fragmented.</h2>
+    <p class="section-sub reveal reveal-delay-2">Most AI deployments fail not because of model quality — but because there is no coherent layer to govern, coordinate, and improve how models operate in the real world.</p>
+    <div class="problem-grid">
+      <div class="problem-card reveal reveal-delay-1">
+        <svg class="problem-icon" viewBox="0 0 36 36" fill="none"><circle cx="10" cy="10" r="6" stroke="currentColor" stroke-width="1.5"/><circle cx="26" cy="10" r="6" stroke="currentColor" stroke-width="1.5"/><circle cx="18" cy="26" r="6" stroke="currentColor" stroke-width="1.5"/><line x1="14" y1="13" x2="23" y2="13" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 2"/></svg>
+        <h3>Siloed Models</h3>
+        <p>One LLM here, one workflow there — no unified control plane, no coherent orchestration.</p>
+      </div>
+      <div class="problem-card reveal reveal-delay-2">
+        <svg class="problem-icon" viewBox="0 0 36 36" fill="none"><rect x="4" y="8" width="12" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="20" y="14" width="12" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="10" y="22" width="12" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/></svg>
+        <h3>Broken Data Environments</h3>
+        <p>Fragmented, multi-format, multi-owner data stacks with no governed access layer.</p>
+      </div>
+      <div class="problem-card reveal reveal-delay-3">
+        <svg class="problem-icon" viewBox="0 0 36 36" fill="none"><path d="M18 4L30 28H6L18 4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><line x1="18" y1="14" x2="18" y2="22" stroke="currentColor" stroke-width="1.5"/><circle cx="18" cy="25" r="1.5" fill="currentColor"/></svg>
+        <h3>Governance as an Afterthought</h3>
+        <p>Policy bolted on after deployment — not enforced at runtime, not architectural.</p>
+      </div>
+      <div class="problem-card reveal reveal-delay-1">
+        <svg class="problem-icon" viewBox="0 0 36 36" fill="none"><path d="M6 18 C6 10 12 4 20 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="20" cy="4" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M6 18 C6 26 12 32 20 32" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 2"/><circle cx="28" cy="18" r="5" stroke="currentColor" stroke-width="1.5"/></svg>
+        <h3>No Deployment Sovereignty</h3>
+        <p>Sensitive workflows and data forced into uncontrolled public cloud environments.</p>
+      </div>
+      <div class="problem-card reveal reveal-delay-2">
+        <svg class="problem-icon" viewBox="0 0 36 36" fill="none"><rect x="6" y="10" width="24" height="16" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M12 18h12M12 22h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="18" cy="6" r="2" stroke="currentColor" stroke-width="1.5"/><line x1="18" y1="8" x2="18" y2="10" stroke="currentColor" stroke-width="1.5"/></svg>
+        <h3>Zero Institutional Memory</h3>
+        <p>Intelligence resets every session. Operational knowledge is lost. Nothing compounds.</p>
+      </div>
+      <div class="problem-card reveal reveal-delay-3">
+        <svg class="problem-icon" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="12" stroke="currentColor" stroke-width="1.5"/><path d="M18 10v8l5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="4" y1="4" x2="8" y2="8" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 2"/></svg>
+        <h3>Compute & Energy Blindness</h3>
+        <p>No awareness of energy cost, infrastructure constraints, or compute efficiency tradeoffs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IS AETHERION -->
+<section id="what">
+  <div class="container">
+    <div class="reveal"><p class="section-label">What is Aetherion</p></div>
+    <div class="what-inner">
+      <div class="what-text">
+        <h2 class="section-title reveal">A Universal Intelligence Substrate</h2>
+        <blockquote class="reveal reveal-delay-1">"Aetherion is not an AI app. Not a chatbot. Not an LLM wrapper. It is a governed orchestration fabric — the institutional nervous system for machine intelligence."</blockquote>
+        <p class="reveal reveal-delay-2" style="color:var(--text-muted);font-size:15px;line-height:1.7">Aetherion sits between users, enterprise systems, data environments, energy resources, and AI models. Its purpose is to accept complex requests, interpret and decompose them, govern and route execution, coordinate every resource involved, and continuously learn from structured operational telemetry.</p>
+        <div class="what-checks reveal reveal-delay-3">
+          <div class="check-item">Model-agnostic routing — best model per task, no vendor lock-in</div>
+          <div class="check-item">Governance-native — policy enforced at runtime, not bolted on</div>
+          <div class="check-item">Deployment-flexible — local, on-prem, air-gapped, hybrid, sovereign cloud</div>
+          <div class="check-item">Continuously self-improving via structured telemetry learning</div>
+          <div class="check-item">Compute and energy-aware — AI as physical infrastructure</div>
+        </div>
+      </div>
+      <div class="arch-diagram reveal reveal-delay-2">
+        <svg viewBox="0 0 320 420" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:320px;margin:0 auto">
+          <defs>
+            <linearGradient id="flowGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7B4DFF"/><stop offset="100%" stop-color="#4FC3F7"/></linearGradient>
+          </defs>
+          <!-- Layer boxes -->
+          <rect x="20" y="10" width="280" height="54" rx="8" fill="#131628" stroke="#7B4DFF" stroke-width="1.5"/>
+          <text x="160" y="32" text-anchor="middle" fill="#A07BFF" font-family="Space Grotesk,sans-serif" font-size="10" font-weight="700" letter-spacing="1">UIE</text>
+          <text x="160" y="48" text-anchor="middle" fill="#8B92B8" font-family="Inter,sans-serif" font-size="10">Universal Intelligence Engine</text>
+          <!-- Arrow -->
+          <line x1="160" y1="64" x2="160" y2="82" stroke="url(#flowGrad)" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <polygon points="156,78 164,78 160,86" fill="#4FC3F7"/>
+          <!-- -->
+          <rect x="20" y="86" width="280" height="54" rx="8" fill="#131628" stroke="#6B3DFF" stroke-width="1.5"/>
+          <text x="160" y="108" text-anchor="middle" fill="#A07BFF" font-family="Space Grotesk,sans-serif" font-size="10" font-weight="700" letter-spacing="1">FUNCTION BROKER</text>
+          <text x="160" y="124" text-anchor="middle" fill="#8B92B8" font-family="Inter,sans-serif" font-size="10">Control-Plane Routing &amp; Governance</text>
+          <!-- Arrow -->
+          <line x1="160" y1="140" x2="160" y2="158" stroke="url(#flowGrad)" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <polygon points="156,154 164,154 160,162" fill="#4FC3F7"/>
+          <!-- -->
+          <rect x="20" y="162" width="280" height="54" rx="8" fill="#131628" stroke="#5B2DFF" stroke-width="1.5"/>
+          <text x="160" y="184" text-anchor="middle" fill="#A07BFF" font-family="Space Grotesk,sans-serif" font-size="10" font-weight="700" letter-spacing="1">CORTEX GATEWAY</text>
+          <text x="160" y="200" text-anchor="middle" fill="#8B92B8" font-family="Inter,sans-serif" font-size="10">Protected Domain Cognition Access</text>
+          <!-- Arrow -->
+          <line x1="160" y1="216" x2="160" y2="234" stroke="url(#flowGrad)" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <polygon points="156,230 164,230 160,238" fill="#4FC3F7"/>
+          <!-- -->
+          <rect x="20" y="238" width="280" height="54" rx="8" fill="#131628" stroke="#4A7BFF" stroke-width="1.5"/>
+          <text x="160" y="260" text-anchor="middle" fill="#A07BFF" font-family="Space Grotesk,sans-serif" font-size="10" font-weight="700" letter-spacing="1">DOMAIN CORTEX</text>
+          <text x="160" y="276" text-anchor="middle" fill="#8B92B8" font-family="Inter,sans-serif" font-size="10">Specialized Sector Intelligence</text>
+          <!-- Arrow -->
+          <line x1="160" y1="292" x2="160" y2="310" stroke="url(#flowGrad)" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <polygon points="156,306 164,306 160,314" fill="#4FC3F7"/>
+          <!-- -->
+          <rect x="20" y="314" width="280" height="54" rx="8" fill="#131628" stroke="#4FC3F7" stroke-width="1.5"/>
+          <text x="160" y="336" text-anchor="middle" fill="#4FC3F7" font-family="Space Grotesk,sans-serif" font-size="10" font-weight="700" letter-spacing="1">ILE · UDOA · CEOA</text>
+          <text x="160" y="352" text-anchor="middle" fill="#8B92B8" font-family="Inter,sans-serif" font-size="10">Learning · Data · Compute/Energy</text>
+          <!-- side labels -->
+          <text x="8" y="42" text-anchor="middle" fill="#7B4DFF" font-family="Inter,sans-serif" font-size="8" transform="rotate(-90,8,42)">INTAKE</text>
+          <text x="8" y="120" text-anchor="middle" fill="#7B4DFF" font-family="Inter,sans-serif" font-size="8" transform="rotate(-90,8,120)">ROUTE</text>
+          <text x="8" y="196" text-anchor="middle" fill="#7B4DFF" font-family="Inter,sans-serif" font-size="8" transform="rotate(-90,8,196)">GUARD</text>
+          <text x="8" y="272" text-anchor="middle" fill="#7B4DFF" font-family="Inter,sans-serif" font-size="8" transform="rotate(-90,8,272)">REASON</text>
+          <text x="8" y="352" text-anchor="middle" fill="#4FC3F7" font-family="Inter,sans-serif" font-size="8" transform="rotate(-90,8,352)">LEARN</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section id="architecture">
+  <div class="container">
+    <div class="reveal"><p class="section-label">Architecture</p></div>
+    <h2 class="section-title reveal reveal-delay-1">Built in Layers. Governed at Every Level.</h2>
+    <p class="section-sub reveal reveal-delay-2">Eleven purpose-built engines forming a coherent intelligence stack — not random features, but a unified architecture for institutional AI.</p>
+    <div class="arch-grid">
+      <div class="arch-card reveal reveal-delay-1"><div class="arch-card-num">Engine 01</div><h3>Universal Intelligence Engine</h3><p>The universal entry surface. Normalizes intake, shapes requests, attaches context, and initiates orchestration. One canonical interface for all interactions.</p></div>
+      <div class="arch-card reveal reveal-delay-2"><div class="arch-card-num">Engine 02</div><h3>Function Broker</h3><p>The control-plane logic layer. Determines what capabilities are required, routes to the right services, and enforces governance hooks before any action executes.</p></div>
+      <div class="arch-card reveal reveal-delay-3"><div class="arch-card-num">Engine 03</div><h3>Cortex Gateway</h3><p>A hardened mediator between the orchestration plane and domain cognition. Protects sensitive reasoning domains from uncontrolled access.</p></div>
+      <div class="arch-card reveal reveal-delay-1"><div class="arch-card-num">Engine 04</div><h3>Domain Cortex</h3><p>Specialized intelligence for energy, finance, defense, healthcare, logistics, real estate, and more. Each domain operates with its own tools, schemas, and decision thresholds.</p></div>
+      <div class="arch-card reveal reveal-delay-2"><div class="arch-card-num">Engine 05</div><h3>Internal Learning Engine</h3><p>Structured telemetry-based continuous learning. ILE applies credibility tiers to observations, preserving institutional memory and compounding operational performance over time.</p></div>
+      <div class="arch-card reveal reveal-delay-3"><div class="arch-card-num">Engine 06</div><h3>UDOA — Data Orchestration</h3><p>Governed data access across fragmented enterprise environments. Provider abstraction, query planning, and data routing with full traceability and schema awareness.</p></div>
+      <div class="arch-card reveal reveal-delay-1"><div class="arch-card-num">Engine 07</div><h3>CEOA — Compute &amp; Energy</h3><p>Compute and energy-aware routing. Routes workloads based on infrastructure cost, carbon efficiency, latency, sovereignty constraints, and institutional sustainability goals.</p></div>
+      <div class="arch-card reveal reveal-delay-2"><div class="arch-card-num">Engine 08</div><h3>Business Underwriting Engine</h3><p>Quantitative analysis for commercial real estate, enterprise investments, and structured financial scenarios. Monte Carlo analysis, risk-informed recommendation support.</p></div>
+      <div class="arch-card reveal reveal-delay-3"><div class="arch-card-num">Engine 09</div><h3>URPE — Risk &amp; Probabilistic</h3><p>High-consequence risk analysis for governments and critical infrastructure. Multi-variable risk modeling, scenario ranking, and strategic uncertainty evaluation.</p></div>
+      <div class="arch-card reveal reveal-delay-1"><div class="arch-card-num">Engine 10</div><h3>Möbius Layer</h3><p>Meta-coherence engine. Detects contradictions across the intelligence stack, reinforces successful orchestration patterns, and prevents repeated failures from recurring.</p></div>
+      <div class="arch-card reveal reveal-delay-2"><div class="arch-card-num">Engine 11</div><h3>Klein Layer</h3><p>Resource-path optimization layer. Works alongside CEOA and UDOA to make the execution substrate continuously self-optimizing across compute, energy, and data flows.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- GOVERNANCE -->
+<section id="governance">
+  <div class="container">
+    <div class="reveal"><p class="section-label">Governance</p></div>
+    <h2 class="section-title reveal reveal-delay-1">Governance is Not Optional. It is Architectural.</h2>
+    <p class="section-sub reveal reveal-delay-2">In Aetherion, governance is not a list of principles — it is embedded into runtime execution. Every action is policy-bound, traced, and explainable.</p>
+    <div class="gov-grid">
+      <div class="gov-col reveal reveal-delay-1">
+        <h3>Constitutional Model</h3>
+        <ul>
+          <li>Human primacy axioms</li>
+          <li>Authorization tiers</li>
+          <li>Absolute prohibitions</li>
+          <li>Jurisdictional controls</li>
+          <li>Belief & system validation</li>
+          <li>Hard enforcement constraints</li>
+        </ul>
+      </div>
+      <div class="gov-col reveal reveal-delay-2">
+        <h3>Runtime Enforcement</h3>
+        <ul>
+          <li>Policy validation at execution</li>
+          <li>Action-level audit trails</li>
+          <li>Explainability by design</li>
+          <li>Role-aware access control</li>
+          <li>Domain-aware permissions</li>
+          <li>Benefit calculation logic</li>
+        </ul>
+      </div>
+      <div class="gov-col reveal reveal-delay-3">
+        <h3>Deployment Sovereignty</h3>
+        <ul>
+          <li>Local-first deployments</li>
+          <li>On-premises enterprise</li>
+          <li>Air-gapped environments</li>
+          <li>Hybrid & private cloud</li>
+          <li>Sovereign cloud deployments</li>
+          <li>Edge &amp; distributed mesh</li>
+        </ul>
+      </div>
+    </div>
+    <div class="gov-quote reveal reveal-delay-2">"Most AI systems are not ready for institutional trust. Aetherion is designed around it."</div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="impact">
+  <div class="container">
+    <div class="reveal"><p class="section-label">Impact</p></div>
+    <h2 class="section-title reveal reveal-delay-1">What Changes When Aetherion is Deployed</h2>
+    <div class="impact-tabs reveal reveal-delay-2">
+      <button class="tab-btn active" onclick="switchTab('enterprise')">Enterprise</button>
+      <button class="tab-btn" onclick="switchTab('government')">Government</button>
+    </div>
+    <div class="tab-content active" id="tab-enterprise">
+      <div class="impact-item"><h3>Cost Efficiency</h3><p>Intelligent workload routing across models, compute, and energy paths reduces infrastructure waste and optimizes economics at scale.</p></div>
+      <div class="impact-item"><h3>Tool &amp; Workflow Interoperability</h3><p>Unifies fragmented AI, data, and tool environments under one governed orchestration layer rather than each department solving AI integration independently.</p></div>
+      <div class="impact-item"><h3>Institutional Memory</h3><p>ILE preserves and compounds operational knowledge across sessions, turning every deployment into a continuously improving institutional asset.</p></div>
+      <div class="impact-item"><h3>Decision Quality</h3><p>Governed domain cognition combined with risk modeling and structured data access improves the consistency and quality of recommendations.</p></div>
+      <div class="impact-item"><h3>Auditability &amp; Trust</h3><p>Full action traceability makes Aetherion suitable for regulated industries where opaque automation creates compliance liability.</p></div>
+      <div class="impact-item"><h3>Resilience &amp; Standardization</h3><p>Model-agnostic routing prevents vendor lock-in and provides a canonical enterprise-wide AI operational layer — not ad hoc department deployments.</p></div>
+    </div>
+    <div class="tab-content" id="tab-government">
+      <div class="impact-item"><h3>Sovereign Intelligence Infrastructure</h3><p>Governments gain AI capability without surrendering control to external black-box platforms. Aetherion supports fully sovereign AI operations.</p></div>
+      <div class="impact-item"><h3>Cross-Agency Coordination</h3><p>Orchestrates intelligence, workflows, and policy-bound reasoning across multiple departments — enabling unified government intelligence operations.</p></div>
+      <div class="impact-item"><h3>Infrastructure Optimization</h3><p>UDOA, CEOA, and URPE capabilities support energy grid optimization, logistics planning, emergency coordination, and infrastructure prioritization at national scale.</p></div>
+      <div class="impact-item"><h3>Secure Domain Cognition</h3><p>Sensitive reasoning domains — defense, finance, public safety — are isolated behind gateways with governance-controlled access pathways.</p></div>
+      <div class="impact-item"><h3>Public Trust &amp; Oversight</h3><p>Built around execution traceability, policy constraint, and bounded action — making government AI systems compatible with public accountability requirements.</p></div>
+      <div class="impact-item"><h3>Strategic Advantage</h3><p>A government running Aetherion well is building a national-scale orchestration capability — strategically profound for intelligence, resilience, and long-term competitiveness.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFFERENTIATION -->
+<section id="differentiation">
+  <div class="container">
+    <div class="reveal"><p class="section-label">How We're Different</p></div>
+    <h2 class="section-title reveal reveal-delay-1">Aetherion is Not Competing in the Same Category</h2>
+    <p class="section-sub reveal reveal-delay-2">Most AI platforms address one or two of these dimensions. Aetherion unifies all of them into a single institutional control layer.</p>
+    <div class="diff-table-wrap reveal reveal-delay-2">
+      <table>
+        <thead>
+          <tr><th>Capability</th><th>Typical AI Tools</th><th>Aetherion</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Model Routing</td><td>Single vendor lock-in</td><td>Model-agnostic, multi-model routing</td></tr>
+          <tr><td>Governance</td><td>Bolted on afterward</td><td>Constitutional, runtime-enforced</td></tr>
+          <tr><td>Data Orchestration</td><td>Manual integration</td><td>Governed UDOA data plane</td></tr>
+          <tr><td>Compute / Energy Awareness</td><td>None</td><td>CEOA first-class layer</td></tr>
+          <tr><td>Institutional Memory</td><td>Resets each session</td><td>ILE-powered continuous learning</td></tr>
+          <tr><td>Deployment Options</td><td>Cloud-only</td><td>Local, on-prem, air-gapped, hybrid, sovereign</td></tr>
+          <tr><td>Auditability</td><td>Minimal</td><td>Full trace chains &amp; explainability</td></tr>
+          <tr><td>Domain Specialization</td><td>Generic</td><td>Specialized Domain Cortex per sector</td></tr>
+          <tr><td>Governance Model</td><td>Policy documents</td><td>Constitutional execution controls</td></tr>
+          <tr><td>Comparable to</td><td>LLM app / copilot</td><td>AI operating system &amp; infrastructure fabric</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- THIRD ORDER EFFECTS -->
+<section id="third-order">
+  <div class="container">
+    <div class="reveal"><p class="section-label">The Long Arc</p></div>
+    <h2 class="section-title reveal reveal-delay-1">First, Second, Third-Order Impact</h2>
+    <p class="section-sub reveal reveal-delay-2">Aetherion's potential extends beyond application-layer improvements into fundamental shifts in how institutions think, operate, and adapt.</p>
+    <div class="order-grid">
+      <div class="order-col reveal reveal-delay-1">
+        <div class="order-col-label">First Order</div>
+        <h3>Immediate Gains</h3>
+        <ul>
+          <li>Faster, governed workflows</li>
+          <li>Better model selection per task</li>
+          <li>Reduced infrastructure waste</li>
+          <li>Clearer governance and control</li>
+          <li>More useful, explainable automation</li>
+        </ul>
+      </div>
+      <div class="order-col reveal reveal-delay-2">
+        <div class="order-col-label">Second Order</div>
+        <h3>Structural Shifts</h3>
+        <ul>
+          <li>Institutional learning compounds</li>
+          <li>Lower AI integration friction across the org</li>
+          <li>Cross-domain coordination improves</li>
+          <li>Infrastructure optimization at scale</li>
+          <li>More interoperable AI environments</li>
+        </ul>
+      </div>
+      <div class="order-col reveal reveal-delay-3">
+        <div class="order-col-label">Third Order</div>
+        <h3>Civilizational Effects</h3>
+        <ul>
+          <li>Organizations become intelligence-native</li>
+          <li>Governments gain sovereign AI coordination</li>
+          <li>Infrastructure systems become adaptive</li>
+          <li>Compute &amp; energy enter intelligent strategy</li>
+          <li>Institutional memory becomes durable advantage</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPLOYMENT -->
+<section id="deployment">
+  <div class="container" style="text-align:center">
+    <div class="reveal"><p class="section-label">Deployment Flexibility</p></div>
+    <h2 class="section-title reveal reveal-delay-1">Meet Institutions Where They Are</h2>
+    <p class="section-sub reveal reveal-delay-2" style="margin:0 auto">Aetherion is designed to operate across the full deployment spectrum — from fully air-gapped sovereign environments to distributed cloud deployments.</p>
+    <div class="deploy-row reveal reveal-delay-2">
+      <div class="deploy-pill"><div class="deploy-pill-icon">🖥</div><h3>Local-First</h3><p>Full capability on-device</p></div>
+      <div class="deploy-pill"><div class="deploy-pill-icon">🏢</div><h3>On-Premises</h3><p>Enterprise private infrastructure</p></div>
+      <div class="deploy-pill"><div class="deploy-pill-icon">⚡</div><h3>Hybrid</h3><p>Seamless cloud + on-prem blend</p></div>
+      <div class="deploy-pill"><div class="deploy-pill-icon">🛡</div><h3>Sovereign Cloud</h3><p>Government-controlled environments</p></div>
+      <div class="deploy-pill"><div class="deploy-pill-icon">🔒</div><h3>Air-Gapped</h3><p>High-security isolated networks</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<section id="footer-cta">
+  <div class="container">
+    <h2 class="footer-cta-title reveal">The Bottleneck is No Longer the Model.<br><span style="color:var(--violet-light)">The Bottleneck is Coordination.</span></h2>
+    <p class="footer-cta-sub reveal reveal-delay-1">Aetherion is built for enterprises and governments that need AI to be governed, sovereign, and compounding. If that describes you, let's talk.</p>
+    <div class="footer-actions reveal reveal-delay-2">
+      <a href="mailto:contact@aetherion.ai" class="btn-primary">Request Early Access</a>
+      <a href="mailto:contact@aetherion.ai" class="btn-ghost">Contact the Team</a>
+    </div>
+    <p style="margin-top:2rem;font-size:13px;color:var(--text-faint)" class="reveal reveal-delay-3">contact@aetherion.ai</p>
+  </div>
+</section>
+
+<footer>
+  <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:0.5rem">
+    <svg width="20" height="20" viewBox="0 0 32 32" fill="none"><defs><linearGradient id="lg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#C0C8E8"/><stop offset="100%" stop-color="#A07BFF"/></linearGradient></defs><polygon points="16,2 30,28 2,28" stroke="url(#lg2)" stroke-width="1.8" fill="none" stroke-linejoin="round"/><line x1="8" y1="20" x2="24" y2="20" stroke="url(#lg2)" stroke-width="1.8"/><circle cx="16" cy="2" r="2" fill="#A07BFF"/><circle cx="2" cy="28" r="2" fill="#4FC3F7"/><circle cx="30" cy="28" r="2" fill="#4FC3F7"/></svg>
+    <span style="color:var(--text-muted);font-weight:600;font-family:var(--font-display)">Aetherion</span>
+  </div>
+  <p>© 2026 Aetherion. All rights reserved. The governed orchestration layer for real-world intelligence.</p>
+</footer>
+
+<script>
+// Star field
+(function(){
+  const c=document.getElementById('stars');
+  for(let i=0;i<140;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    const x=Math.random()*100,y=Math.random()*100;
+    const size=Math.random()<0.8?1:Math.random()<0.7?1.5:2;
+    const dur=2+Math.random()*4,delay=Math.random()*5;
+    const minOp=0.05+Math.random()*0.1,maxOp=0.4+Math.random()*0.6;
+    const colors=['#ffffff','#ffffff','#ffffff','#4FC3F7','#A07BFF'];
+    const col=colors[Math.floor(Math.random()*colors.length)];
+    s.style.cssText=`left:${x}%;top:${y}%;width:${size}px;height:${size}px;background:${col};--d:${dur}s;--delay:${delay}s;--min-op:${minOp};--max-op:${maxOp}`;
+    c.appendChild(s);
+  }
+})();
+
+// Scroll reveal
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible')}});
+},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+// immediately show hero
+setTimeout(()=>{document.querySelectorAll('#hero .reveal').forEach(el=>el.classList.add('visible'))},100);
+
+// Mobile menu
+function toggleMenu(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// Tabs
+function switchTab(tab){
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>{
+    b.classList.toggle('active',i===(tab==='enterprise'?0:1));
+  });
+  document.getElementById('tab-enterprise').classList.toggle('active',tab==='enterprise');
+  document.getElementById('tab-government').classList.toggle('active',tab==='government');
+}
+</script>
+<script data-pplx-inline-edit>
+(function(){
+  if(window===window.top)return;
+  function inlineAll(orig,clone){
+    if(orig.nodeType!==1)return;
+    try{
+      var cs=getComputedStyle(orig);
+      var t='';
+      for(var i=0;i<cs.length;i++){t+=cs[i]+':'+cs.getPropertyValue(cs[i])+';';}
+      clone.style.cssText=t;
+    }catch(e){}
+    var oc=orig.children,cc=clone.children;
+    for(var j=0;j<oc.length&&j<cc.length;j++){inlineAll(oc[j],cc[j]);}
+  }
+  function stripExternal(clone){
+    var imgs=clone.querySelectorAll('img');
+    for(var i=0;i<imgs.length;i++){
+      var s=imgs[i].getAttribute('src');
+      if(s&&!s.startsWith('data:'))imgs[i].removeAttribute('src');
+    }
+    var all=clone.querySelectorAll('*');
+    for(var i=0;i<all.length;i++){
+      var st=all[i].style.cssText;
+      if(st&&st.indexOf('url(')>=0){
+        all[i].style.cssText=st.replace(/url\(["']?(?!data:)[^)"']*["']?\)/gi,'none');
+      }
+    }
+  }
+  var scrollRaf=0;
+  function emitScroll(){
+    scrollRaf=0;
+    var x=window.scrollX||window.pageXOffset||0;
+    var y=window.scrollY||window.pageYOffset||0;
+    window.parent.postMessage({type:'INLINE_EDIT_SCROLL',scrollX:x,scrollY:y},'*');
+  }
+  window.addEventListener('scroll',function(){
+    if(scrollRaf)return;
+    scrollRaf=requestAnimationFrame(emitScroll);
+  },{passive:true,capture:true});
+  emitScroll();
+  window.addEventListener('message',function(e){
+    if(!e.data||e.data.type!=='INLINE_EDIT_CAPTURE_REQUEST')return;
+    var scrollX=window.scrollX||window.pageXOffset||0;
+    var scrollY=window.scrollY||window.pageYOffset||0;
+    var w=window.innerWidth,h=window.innerHeight;
+    try{
+      var clone=document.documentElement.cloneNode(true);
+      var rm=clone.querySelectorAll('script,link[rel="stylesheet"],style');
+      for(var i=0;i<rm.length;i++){rm[i].remove();}
+      inlineAll(document.documentElement,clone);
+      stripExternal(clone);
+      var html=new XMLSerializer().serializeToString(clone);
+      var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
+        +'<foreignObject width="100%" height="100%">'
+        +'<div xmlns="http://www.w3.org/1999/xhtml" style="width:'+w+'px;height:'+h+'px;overflow:hidden">'
+        +'<div style="transform:translate(-'+scrollX+'px,-'+scrollY+'px);transform-origin:top left">'
+        +html+'</div></div></foreignObject></svg>';
+      var svgUrl='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+      var img=new Image();
+      img.onload=function(){
+        var c=document.createElement('canvas');c.width=w;c.height=h;
+        c.getContext('2d').drawImage(img,0,0);
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:c.toDataURL('image/png'),scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.onerror=function(){
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.src=svgUrl;
+    }catch(err){
+      window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+    }
+  });
+})();
+</script></body>
+</html>
